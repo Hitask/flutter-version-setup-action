@@ -1,0 +1,51 @@
+name: 'Setup Flutter version'
+description: 'Setup Flutter version specified in pubspec.ysml, also install Java and Android SDK'
+branding:
+  icon: "download"
+  color: blue  
+inputs:
+  pubspec:  
+    description: 'pubspec.yaml location. default: /pubspec.yaml'
+    required: false
+    default: ${{ github.workspace }}'/pubspec.yaml'
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+      name: Checkout
+    - name: Get version
+      id: flutter-version
+      uses: jbutcher5/read-yaml@v1.4
+      with:
+        file: ${{ inputs.pubspec }}
+        key-path: '["environment","flutter"]'
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2.12.0
+      with:
+        flutter-version: ${{ steps.flutter-version.outputs.data }}
+        cache: true
+    - name: Flutter config
+      shell: bash
+      run: flutter config --no-analytics; flutter config --no-cli-animations
+    - name: Flutter version
+      shell: bash
+      run: flutter --version
+    - name: Clean
+      shell: bash
+      run: flutter clean
+    - name: Install dependencies
+      shell: bash
+      run: flutter pub get
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        java-version: 17
+        distribution: temurin
+    - name: Setup Android SDK
+      uses: amyu/setup-android@v4
+      with:
+        sdk-version: "33"
+        build-tools-version: "34.0.0"
+        cache-disabled: true
+        generate-job-summary: false
+ 
