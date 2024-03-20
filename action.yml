@@ -1,13 +1,13 @@
 name: 'Setup Flutter version'
-description: 'Setup Flutter version specified in pubspec.ysml, also install Java and Android SDK'
+description: 'Setup Flutter version specified in pubspec.yaml, also install Java and Android SDK'
 branding:
   icon: "download"
   color: blue  
 inputs:
-  pubspec:  
+  pubspec-file:  
     description: 'pubspec.yaml location. default: /pubspec.yaml'
     required: false
-    default: /pubspec.yaml
+    default: 'pubspec.yaml'
 runs:
   using: "composite"
   steps:
@@ -17,7 +17,7 @@ runs:
       id: flutter-version
       uses: jbutcher5/read-yaml@v1.4
       with:
-        file: ${{ inputs.pubspec }}
+        file: ${{ inputs.pubspec-file }}
         key-path: '["environment","flutter"]'
     - name: Setup Flutter
       uses: subosito/flutter-action@v2.12.0
