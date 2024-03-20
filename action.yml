@@ -17,7 +17,7 @@ runs:
       id: flutter-version
       uses: jbutcher5/read-yaml@v1.4
       with:
-        file: ${{ inputs.pubspec-file }}
+        file:  './${{ inputs.pubspec-file }}'
         key-path: '["environment","flutter"]'
     - name: Setup Flutter
       uses: subosito/flutter-action@v2.12.0
@@ -48,4 +48,3 @@ runs:
         build-tools-version: "34.0.0"
         cache-disabled: true
         generate-job-summary: false
- 
