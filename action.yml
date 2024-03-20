@@ -5,9 +5,9 @@ branding:
   color: blue  
 inputs:
   pubspec-file:  
-    description: 'pubspec.yaml location. default: /pubspec.yaml'
+    description: 'pubspec.yaml location. default:pubspec.yaml'
     required: false
-    default: 'pubspec.yaml'
+    default: pubspec.yaml
 runs:
   using: "composite"
   steps:
