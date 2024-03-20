@@ -7,7 +7,7 @@ inputs:
   pubspec:  
     description: 'pubspec.yaml location. default: /pubspec.yaml'
     required: false
-    default: ${{ github.workspace }}'/pubspec.yaml'
+    default: '/pubspec.yaml'
 runs:
   using: "composite"
   steps:
